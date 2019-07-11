@@ -31,7 +31,17 @@ module Enumerable
         end
     end
     flag
-end
+  end
+
+  def my_any?
+    flag=false
+    my_each do |x|
+        if yield x
+            flag=true
+        end
+    end
+    flag
+  end
 end
 
 myarray = [0, 1, 3, 10, 5]
@@ -45,4 +55,7 @@ myarray = [0, 1, 3, 10, 5]
 #print myarray.my_select {  |num| num > 2  }
 
 #print myarray.all? {  |num| num >= 2  }
-print myarray.my_all? {  |num| num >= 0  }
+#print myarray.my_all? {  |num| num >= 0  }
+
+print myarray.any? {  |num| num >= 10  }
+print myarray.my_any? {  |num| num == 10  }
