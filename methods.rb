@@ -61,7 +61,24 @@ module Enumerable
     end
     i
   end
+
+  def my_map
+    no_enumerator = block_given?
+        if no_enumerator==false
+    return to_enum(:my_map) 
+        else 
+            ari=Array.new
+            my_each do |x|
+               ari.push(yield x)
+            end
+        end
+        ari
 end
+
+
+end
+
+
 myarray = [0, 1, 3, 10, 5]
 # myarray.each{ |x| puts x }
 # myarray.my_each { |x| puts x }
@@ -81,5 +98,7 @@ myarray = [0, 1, 3, 10, 5]
 # print myarray.none? { |num| num >= 10 }
 # print myarray.my_none? { |num| num >= 10 }
 
-print myarray.my_count(&:even?) #=>
-print myarray.count(&:even?) #=>
+# print myarray.my_count(&:even?) #=>
+# print myarray.count(&:even?) #=>
+
+print myarray.my_map{ |i| i*i } 
