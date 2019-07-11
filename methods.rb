@@ -38,6 +38,14 @@ module Enumerable
     end
     flag
   end
+
+  def my_none?
+    flag = true
+    my_each do |x|
+      flag = false if yield x
+    end
+    flag
+    end
 end
 
 myarray = [0, 1, 3, 10, 5]
@@ -55,3 +63,6 @@ myarray = [0, 1, 3, 10, 5]
 
 # print myarray.any? {  |num| num >= 10 }
 # print myarray.my_any? { |num| num == 10 }
+
+ print myarray.none? { |num| num >= 10 }
+ print myarray.my_none? { |num| num >= 10 }
