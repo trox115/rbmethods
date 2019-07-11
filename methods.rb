@@ -75,11 +75,22 @@ module Enumerable
         ari
 end
 
+def my_inject
+    aux=self[0]
+    minus=self[0]
+    my_each do |x|
+      aux= yield(aux, x)
+    end
+aux/minus
+end
+
+
 
 end
 
 
 myarray = [0, 1, 3, 10, 5]
+
 # myarray.each{ |x| puts x }
 # myarray.my_each { |x| puts x }
 
@@ -101,4 +112,11 @@ myarray = [0, 1, 3, 10, 5]
 # print myarray.my_count(&:even?) #=>
 # print myarray.count(&:even?) #=>
 
-print myarray.my_map{ |i| i*i } 
+# print myarray.my_map{ |i| i*i } 
+# print myarray.map{ |i| i*i } 
+# print myarray.inject { |aux, x| aux * x } 
+# print myarray.my_inject { |aux, x| aux * x } 
+def multiply_els(array)
+    array.my_inject { |aux, x| aux * x }
+  end
+puts multiply_els([2,4,5]) #=> 40
