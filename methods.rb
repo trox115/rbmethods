@@ -24,21 +24,17 @@ module Enumerable
   end
 
   def my_all?
-    flag=true
+    flag = true
     my_each do |x|
-        if ! yield x
-            flag=false
-        end
+      flag = false unless yield x
     end
     flag
   end
 
   def my_any?
-    flag=false
+    flag = false
     my_each do |x|
-        if yield x
-            flag=true
-        end
+      flag = true if yield x
     end
     flag
   end
@@ -51,11 +47,11 @@ myarray = [0, 1, 3, 10, 5]
 # myarray.each_with_index{|x, i| puts i.to_s+" "+x.to_s}
 # myarray.my_each_with_index{|x,i| puts i.to_s+" "+x.to_s}
 
-#print myarray.select(&:even?)
-#print myarray.my_select {  |num| num > 2  }
+# print myarray.select(&:even?)
+# print myarray.my_select {  |num| num > 2  }
 
-#print myarray.all? {  |num| num >= 2  }
-#print myarray.my_all? {  |num| num >= 0  }
+# print myarray.all? {  |num| num >= 2  }
+# print myarray.my_all? {  |num| num >= 0  }
 
-print myarray.any? {  |num| num >= 10  }
-print myarray.my_any? {  |num| num == 10  }
+# print myarray.any? {  |num| num >= 10 }
+# print myarray.my_any? { |num| num == 10 }
