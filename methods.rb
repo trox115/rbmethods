@@ -62,10 +62,13 @@ module Enumerable
     i
   end
 
-  def my_map
+  def my_map proc=nil
     no_enumerator = block_given?
-        if no_enumerator==false
-    return to_enum(:my_map) 
+        if proc
+            ari=Array.new
+            my_each do |x|
+                ari.push(proc.call(x))
+            end
         else 
             ari=Array.new
             my_each do |x|
@@ -120,3 +123,7 @@ def multiply_els(array)
     array.my_inject { |aux, x| aux * x }
   end
 puts multiply_els([2,4,5]) #=> 40
+
+my_proc = Proc.new {|i| i+i}
+print myarray.my_map(my_proc)
+ #print myarray.map {|i| i+i}
