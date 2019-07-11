@@ -62,35 +62,32 @@ module Enumerable
     i
   end
 
-  def my_map proc=nil
-    no_enumerator = block_given?
-        if proc
-            ari=Array.new
-            my_each do |x|
-                ari.push(proc.call(x))
-            end
-        else 
-            ari=Array.new
-            my_each do |x|
-               ari.push(yield x)
-            end
-        end
-        ari
-end
+  def my_map(proc = nil)
+    # no_enumerator = block_given?
+    ari = []
+    if proc
 
-def my_inject
-    aux=self[0]
-    minus=self[0]
-    my_each do |x|
-      aux= yield(aux, x)
+      my_each do |x|
+        ari.push(proc.call(x))
+      end
+    else
+
+      my_each do |x|
+        ari.push(yield x)
+      end
     end
-aux/minus
+    ari
+  end
+
+  def my_inject
+    aux = self[0]
+    minus = self[0]
+    my_each do |x|
+      aux = yield(aux, x)
+    end
+    aux / minus
+  end
 end
-
-
-
-end
-
 
 myarray = [0, 1, 3, 10, 5]
 
@@ -115,15 +112,15 @@ myarray = [0, 1, 3, 10, 5]
 # print myarray.my_count(&:even?) #=>
 # print myarray.count(&:even?) #=>
 
-# print myarray.my_map{ |i| i*i } 
-# print myarray.map{ |i| i*i } 
-# print myarray.inject { |aux, x| aux * x } 
-# print myarray.my_inject { |aux, x| aux * x } 
+# print myarray.my_map{ |i| i*i }
+# print myarray.map{ |i| i*i }
+# print myarray.inject { |aux, x| aux * x }
+# print myarray.my_inject { |aux, x| aux * x }
 def multiply_els(array)
-    array.my_inject { |aux, x| aux * x }
-  end
-puts multiply_els([2,4,5]) #=> 40
+  array.my_inject { |aux, x| aux * x }
+end
+puts multiply_els([2, 4, 5]) #=> 40
 
-my_proc = Proc.new {|i| i+i}
+my_proc = proc { |i| i + i }
 print myarray.my_map(my_proc)
- #print myarray.map {|i| i+i}
+# print myarray.map {|i| i+i}
