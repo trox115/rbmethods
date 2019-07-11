@@ -45,9 +45,23 @@ module Enumerable
       flag = false if yield x
     end
     flag
-    end
-end
+  end
 
+  def my_count
+    just_counting = block_given?
+    if just_counting == false
+      i = 1
+      i += 1 until self[i].nil?
+      return i
+    else
+      i = 0
+      my_each do |x|
+        i += 1 if yield x
+      end
+    end
+    i
+  end
+end
 myarray = [0, 1, 3, 10, 5]
 # myarray.each{ |x| puts x }
 # myarray.my_each { |x| puts x }
@@ -64,5 +78,8 @@ myarray = [0, 1, 3, 10, 5]
 # print myarray.any? {  |num| num >= 10 }
 # print myarray.my_any? { |num| num == 10 }
 
- print myarray.none? { |num| num >= 10 }
- print myarray.my_none? { |num| num >= 10 }
+# print myarray.none? { |num| num >= 10 }
+# print myarray.my_none? { |num| num >= 10 }
+
+print myarray.my_count(&:even?) #=>
+print myarray.count(&:even?) #=>
