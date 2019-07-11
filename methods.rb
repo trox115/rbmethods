@@ -22,6 +22,16 @@ module Enumerable
     end
     ari
   end
+
+  def my_all?
+    flag=true
+    my_each do |x|
+        if ! yield x
+            flag=false
+        end
+    end
+    flag
+end
 end
 
 myarray = [0, 1, 3, 10, 5]
@@ -33,3 +43,6 @@ myarray = [0, 1, 3, 10, 5]
 
 #print myarray.select(&:even?)
 #print myarray.my_select {  |num| num > 2  }
+
+#print myarray.all? {  |num| num >= 2  }
+print myarray.my_all? {  |num| num >= 0  }
